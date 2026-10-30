@@ -4,9 +4,9 @@ GitHub Actions downloads split/dividend-adjusted QQQ and TQQQ daily OHLC from Ya
 
 **Signals** (QQQ close): RSI(2) crosses above 10, QQQ above its 200-day moving average, and that average is higher than 20 sessions earlier. Buy TQQQ next open. Exit at next open after QQQ RSI(2)>70 or after 3/5/7 sessions; protective stop tested at 4/5/6/8%. Stop gaps fill at open. No averaging down; risk budget 0.5% of equity per trade, capped at available cash. 5 basis points transaction cost each side.
 
-## Historical results
+## Historical results (superseded — pending corrected rerun)
 
-Results from [GitHub Actions run #41016365244](https://github.com/namuan/tqqq-rsi-backtest/actions/runs/41016365244), using a $10,000 starting account. The strategy row is the **best CAGR among 12 in-sample configurations**, not an out-of-sample result.
+The table below is from the **previous backtest engine** and is retained for comparison only. Exit-order and holding-period logic have since been corrected; **do not treat these figures as current**. Results from [GitHub Actions run #41016365244](https://github.com/namuan/tqqq-rsi-backtest/actions/runs/41016365244), using a $10,000 starting account. The strategy row is the **best CAGR among 12 in-sample configurations**, not an out-of-sample result.
 
 | Metric | RSI(2) strategy (8% stop, 7-day hold) | TQQQ buy-and-hold |
 |---|---:|---:|
@@ -24,3 +24,10 @@ Results from [GitHub Actions run #41016365244](https://github.com/namuan/tqqq-rs
 Run via **Actions → TQQQ RSI Backtest → Run workflow**, or on each push. Download the `backtest-results` artifact with price data, trade logs, and parameter results.
 
 **Caveats:** exploratory in-sample parameter sweep, Yahoo data may be revised, stop fills assume daily OHLC without intraday order sequencing, and historical performance is not predictive. Benchmark uses the same initial capital with buy-and-hold TQQQ.
+
+
+## Corrected diagnostic run
+
+The updated engine fixes next-open exit precedence, defines holding periods explicitly, and includes end-of-data liquidation. Each run now exports `baseline_diagnostics.csv`, `annual_returns.csv`, `buy_hold_benchmarks.csv` (both QQQ and TQQQ), `baseline_trades.csv`, and `parameter_comparison.csv`. Diagnostics include exposure, average winning/losing trade, largest loss, total fees, annualized volatility, and the existing risk/return metrics.
+
+**The historical comparison table above must be refreshed using the corrected workflow's artifact before making investment decisions.**
